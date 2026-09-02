@@ -5,8 +5,10 @@ After=network-online.target
 
 [Service]
 Type=oneshot
+# Type=oneshot disables the start timeout by default; without this a hung
+# fetch would block every later timer run indefinitely.
+TimeoutStartSec=5m
 User=adblock-sync
-Group=adblock-sync
 WorkingDirectory=/var/lib/adblock-rules/credfeto-adblock-rules
 ExecStart=/usr/bin/git fetch origin main
 ExecStart=/usr/bin/git reset --hard origin/main
