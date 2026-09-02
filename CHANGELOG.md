@@ -14,7 +14,7 @@ Please ADD ALL Changes to the UNRELASED SECTION and not a specific release
 ### Fixed
 ### Changed
 - Pin GitHub Actions `uses:` references to commit SHA instead of tag
-- Hardened the GitHub Pages deploy workflow: single-commit gh-pages publishes (force_orphan), shallow checkout, and updated action pins
+- Hardened the GitHub Pages deploy workflow: single-commit gh-pages publishes (force_orphan) and shallow checkout
 ### Deprecated
 ### Removed
 ### Deployment Changes
