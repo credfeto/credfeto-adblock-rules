@@ -11,10 +11,10 @@ Please ADD ALL Changes to the UNRELASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
-- Hourly-refreshed local mirror of the hagezi DNS blocklists (multi, doh-vpn-proxy-bypass, hoster), published unmodified with attribution under abp.markridgwell.com/hagezi/ so the DNS servers no longer fetch from raw.githubusercontent.com
 ### Fixed
 ### Changed
 - Pin GitHub Actions `uses:` references to commit SHA instead of tag
+- Hardened the GitHub Pages deploy workflow: single-commit gh-pages publishes (force_orphan) and shallow checkout
 ### Deprecated
 ### Removed
 ### Deployment Changes

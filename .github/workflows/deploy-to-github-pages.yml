@@ -8,7 +8,6 @@ on:
     paths:
       - adblock.txt
       - hosts.txt
-      - hagezi/**
       - .github/workflows/deploy-to-github-pages.yml
 jobs:
   deploy:
@@ -25,17 +24,12 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: "Remove gitignore"
-        shell: bash
-        run: rm -f "${{env.TARGET}}/.gitignore"
-
       - name: "Build"
         shell: bash
         run: |
           mkdir "${{env.TARGET}}/"
           cp adblock.txt "${{env.TARGET}}/adblock.txt"
           cp hosts.txt "${{env.TARGET}}/hosts.txt"
-          cp -r hagezi "${{env.TARGET}}/hagezi"
 
       - name: "Deploy"
         if: ${{ github.ref == 'refs/heads/main' }}
