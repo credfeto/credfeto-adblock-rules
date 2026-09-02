@@ -1,0 +1,224 @@
+# Geo blocked for UK (So may as well dissapear the sites
+0.0.0.0 support.com
+0.0.0.0 bitcoinist.com
+
+# Other
+0.0.0.0 espncdn.com
+
+
+
+# Live TV
+0.0.0.0 sky.com
+#channel5.com
+#channel4.com
+#itv.com
+
+# Live TV - BBC
+0.0.0.0 ambridgevillage.co.uk
+0.0.0.0 bbc.bg
+0.0.0.0 bbc.click
+0.0.0.0 bbc.co.uk
+0.0.0.0 bbc.cooking
+0.0.0.0 bbc.cymru
+0.0.0.0 bbc.cz
+0.0.0.0 bbc.digital
+0.0.0.0 bbc.eu
+0.0.0.0 bbc.hu
+0.0.0.0 bbc.london
+0.0.0.0 bbc.mobi
+0.0.0.0 bbc.news
+0.0.0.0 bbc.online
+0.0.0.0 bbc.press
+0.0.0.0 bbc.tel
+0.0.0.0 bbc.uk.com
+0.0.0.0 bbc.uno
+0.0.0.0 bbc.us
+0.0.0.0 bbc.wales
+0.0.0.0 bbc.website
+0.0.0.0 bbcalba.co.uk
+0.0.0.0 bbcalbanian.com
+0.0.0.0 bbcbulgarian.com
+0.0.0.0 bbccaribbean.com
+0.0.0.0 bbcchildreninneedshop.co.uk
+0.0.0.0 bbccin.co.uk
+0.0.0.0 bbcconnectedstudio.co.uk
+0.0.0.0 bbccroatian.com
+0.0.0.0 bbcczech.com
+0.0.0.0 bbcdigitalguerrillas.co.uk
+0.0.0.0 bbcdigitalguerrillasdev.co.uk
+0.0.0.0 bbcdw.org
+0.0.0.0 bbcgovernors.co.uk
+0.0.0.0 bbchungarian.com
+0.0.0.0 bbci.co.uk
+0.0.0.0 bbcinternationalunit.com
+0.0.0.0 bbciplayer.co.uk
+0.0.0.0 bbciplayer.com
+0.0.0.0 bbckazakh.com
+0.0.0.0 bbcmacedonian.com
+0.0.0.0 bbcmonitoring.international
+0.0.0.0 bbcmonitoring.online
+0.0.0.0 bbcnazer.com
+0.0.0.0 bbcnews.global
+0.0.0.0 bbcnews.online
+0.0.0.0 bbcnewslabs.co.uk
+0.0.0.0 bbcparaafrica.com
+0.0.0.0 bbcpartnermarketing.co.uk
+0.0.0.0 bbcphotolibrary.co.uk
+0.0.0.0 bbcphotosales.co.uk
+0.0.0.0 bbcpictures.co.uk
+0.0.0.0 bbcpictures.com
+0.0.0.0 bbcpolish.com
+0.0.0.0 bbcpreviews.co.uk
+0.0.0.0 bbcpromoclips.co.uk
+0.0.0.0 bbcradiopreviews.co.uk
+0.0.0.0 bbcromanian.com
+0.0.0.0 bbcserbian.com
+0.0.0.0 bbcslovak.com
+0.0.0.0 bbctajik.com
+0.0.0.0 bbcterrificscientificregistration.co.uk
+0.0.0.0 bbcthai.com
+0.0.0.0 bbcthesocial.co.uk
+0.0.0.0 bbctrust.co.uk
+0.0.0.0 bbctrust.org
+0.0.0.0 bbctrustees.co.uk
+0.0.0.0 bbcworld.global
+0.0.0.0 bbcworld.international
+0.0.0.0 bbcworldnews.com
+0.0.0.0 bbcworldnews.global
+0.0.0.0 bbcworldnews.international
+0.0.0.0 bbcworldnews.online
+0.0.0.0 bbcworldservice.com
+0.0.0.0 bestmurders.co.uk
+0.0.0.0 bigginspanto.co.uk
+0.0.0.0 broadcastersliaisongroup.org.uk
+0.0.0.0 bscportal.co.uk
+0.0.0.0 cbbc.co.uk
+0.0.0.0 cbeebies.com
+0.0.0.0 connieprince.co.uk
+0.0.0.0 eastenders.london
+0.0.0.0 filetonews.co.uk
+0.0.0.0 filetotraffic.co.uk
+0.0.0.0 findphoebe.co.uk
+0.0.0.0 findthegirl.co.uk
+0.0.0.0 focce.co.uk
+0.0.0.0 freddyfruitcake.co.uk
+0.0.0.0 getsetfordigital.co.uk
+0.0.0.0 goldfishbowlprods.co.uk
+0.0.0.0 hoytitoyti.co.uk
+0.0.0.0 insideno9extra.co.uk
+0.0.0.0 insideravenhill.co.uk
+0.0.0.0 jellyparties.co.uk
+0.0.0.0 johnwatsonblog.co.uk
+0.0.0.0 jollyparties.co.uk
+0.0.0.0 laptoptrackr.co.uk
+0.0.0.0 lomaxcommodities.co.uk
+0.0.0.0 midgetgemsvideo.co.uk
+0.0.0.0 mixital.co.uk
+0.0.0.0 mollyhooper.co.uk
+0.0.0.0 murderandchips.co.uk
+0.0.0.0 psychictwits.co.uk
+0.0.0.0 psychictwits.com
+0.0.0.0 robertgreenspan.co.uk
+0.0.0.0 sharetakecare.co.uk
+0.0.0.0 smellslikedebbie.co.uk
+0.0.0.0 sunbridgehighschool.co.uk
+0.0.0.0 sunnyvaleresthome.co.uk
+0.0.0.0 thescienceofdeduction.co.uk
+0.0.0.0 thiraproject.org.uk
+0.0.0.0 thirteenlostyears.co.uk
+0.0.0.0 turingcodec.org
+0.0.0.0 unit.org.uk
+0.0.0.0 visittorchwood.co.uk
+0.0.0.0 websiterecall.co.uk
+0.0.0.0 bbc.com
+0.0.0.0 bbc.in
+0.0.0.0 bbci.co.uk
+0.0.0.0 bbc.co.uk
+
+
+# Crap papers
+0.0.0.0 washingtontimes.com
+0.0.0.0 telegraph.co.uk
+0.0.0.0 mirror.co.uk
+0.0.0.0 express.co.uk
+0.0.0.0 thesun.co.uk
+0.0.0.0 dailymail.co.uk
+0.0.0.0 thisismoney.co.uk
+
+0.0.0.0 locals.com
+0.0.0.0 substack.com
+0.0.0.0 breitbart.com
+
+# Samsung TV Ads
+#0.0.0.0 samsungads.com
+
+# Tracking/Adverts
+0.0.0.0 api.onesignal.com
+0.0.0.0 api.segment.io
+0.0.0.0 branch.io
+0.0.0.0 data.microsoft.com
+0.0.0.0 device-metrics-us-2.amazon.com
+0.0.0.0 dit.whatsapp.net
+0.0.0.0 doubleclick.net
+0.0.0.0 firebase-settings.crashlytics.com
+0.0.0.0 googleads.g.doubleclick.net
+0.0.0.0 heytapmobile.com
+0.0.0.0 lcprd1.samsungcloudsolution.net
+0.0.0.0 qepodownload.mediatek.com
+0.0.0.0 ssl.google-analytics.com
+0.0.0.0 stats.grafana.org
+0.0.0.0 teleport.soom.la
+0.0.0.0 us04logfiles.zoom.us
+0.0.0.0 us04zpns.zoom.us
+0.0.0.0 userlocation.googleapis.com
+0.0.0.0 heytapmobile.com
+0.0.0.0 httpdns-euex-push.heytapmobile.com
+0.0.0.0 tpc.googlesyndication.com
+0.0.0.0 geller-pa.googleapis.com
+0.0.0.0 qcc.qualcomm.com
+
+# Roku
+#0.0.0.0 scribe.logs.roku.com
+#0.0.0.0 marlin.logs.roku.com
+#0.0.0.0 cloudservices.roku.com
+# images.sr.roku.com
+# ads.roku.com
+# track.sr.roku.com
+# traces.sr.roku.com
+# samples.voice.cti.roku.com
+# rxr.ravm.tv
+# ravm.tv
+# raps.ravm.tv
+# raps-perf.ravm.tv
+# p.ads.roku.com
+# i.ads.roku.com
+# display.ravm.tv
+# digdug.logs.roku.com
+# digdug-g2.logs.roku.com
+# customer-feedbacks.web.roku.com
+# amoeba-plus.web.roku.com
+# amarillo.logs.roku.com
+# wwwimg.roku.com
+
+# Netflix
+0.0.0.0 logs.netflix.com
+
+# stupid TLDs
+0.0.0.0 zip
+
+# CCTV - no need for this to be able to access anything!
+0.0.0.0 rs.xmeye.net
+0.0.0.0 xmeye.net
+
+# Microsoft
+0.0.0.0 dc.services.visualstudio.com
+0.0.0.0 dc.applicationinsights.microsoft.com
+0.0.0.0 dc.applicationinsights.azure.com
+0.0.0.0 applicationinsights.microsoft.com
+0.0.0.0 global.in.ai.monitor.azure.com
+0.0.0.0 applicationinsights.azure.com#
+0.0.0.0 mobile.events.data.microsoft.com
+0.0.0.0 mobile.pipe.aria.microsoft.com
+
+# Google
+0.0.0.0 google-analytics.com
