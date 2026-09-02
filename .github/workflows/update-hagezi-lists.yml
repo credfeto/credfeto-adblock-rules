@@ -1,0 +1,82 @@
+---  # Mirror the hagezi blocklists used by the DNS servers into this repo (see issue #622)
+name: "Repo: Update hagezi blocklist mirror"
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/update-hagezi-lists.yml"
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update-hagezi-lists:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Check Required Secrets"
+        shell: bash
+        run: |
+          if [ -z "${{secrets.SOURCE_PUSH_TOKEN}}" ]; then
+            echo "::error::SOURCE_PUSH_TOKEN is required but not set"
+            exit 1
+          fi
+
+      - name: "Initialise Workspace"
+        if: runner.environment == 'self-hosted'
+        shell: bash
+        run: sudo chown -R "$USER:$USER" "$GITHUB_WORKSPACE"
+
+      - name: "Checkout Source"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          clean: true
+          fetch-depth: 1
+          token: ${{secrets.SOURCE_PUSH_TOKEN}}
+          persist-credentials: true
+
+      - name: "Fetch upstream hagezi lists"
+        id: fetch-upstream
+        shell: bash
+        run: |
+          UPSTREAM_DIR="${{runner.temp}}/hagezi-upstream"
+          rm -fr "$UPSTREAM_DIR"
+          git clone \
+            --depth 1 \
+            --filter=blob:none \
+            --sparse \
+            --branch main \
+            https://github.com/hagezi/dns-blocklists.git \
+            "$UPSTREAM_DIR"
+          git -C "$UPSTREAM_DIR" sparse-checkout set --no-cone \
+            /hosts/doh-vpn-proxy-bypass.txt \
+            /hosts/multi.txt \
+            /hosts/hoster.txt
+          for LIST in doh-vpn-proxy-bypass multi hoster; do
+            if [ ! -s "$UPSTREAM_DIR/hosts/$LIST.txt" ]; then
+              echo "::error::Upstream file hosts/$LIST.txt is missing or empty"
+              exit 1
+            fi
+            cp "$UPSTREAM_DIR/hosts/$LIST.txt" "hagezi/$LIST.txt"
+          done
+          UPSTREAM_SHA=$(git -C "$UPSTREAM_DIR" rev-parse HEAD)
+          echo "Upstream hagezi/dns-blocklists commit: $UPSTREAM_SHA"
+          echo "UPSTREAM_SHA=$UPSTREAM_SHA" >> "$GITHUB_OUTPUT"
+
+      - name: "Commit changes"
+        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        with:
+          commit_message: "chore(hagezi): update mirror to hagezi/dns-blocklists@${{steps.fetch-upstream.outputs.UPSTREAM_SHA}}"
+          file_pattern: "hagezi/*.txt"
+          commit_user_name: "hagezi-mirror[bot]"
+          commit_user_email: "credfeto@users.noreply.github.com"
+          commit_author: "hagezi-mirror[bot] <credfeto@users.noreply.github.com>"
+          skip_dirty_check: false
