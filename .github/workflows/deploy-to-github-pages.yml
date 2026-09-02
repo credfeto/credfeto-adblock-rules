@@ -24,10 +24,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: "Remove gitignore"
-        shell: bash
-        run: rm -f "${{env.TARGET}}/.gitignore"
-
       - name: "Build"
         shell: bash
         run: |
