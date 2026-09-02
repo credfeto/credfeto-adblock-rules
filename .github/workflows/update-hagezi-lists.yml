@@ -47,20 +47,20 @@ jobs:
         id: fetch-upstream
         shell: bash
         run: |
+          LISTS=(doh-vpn-proxy-bypass multi hoster)
           UPSTREAM_DIR="${{runner.temp}}/hagezi-upstream"
-          rm -fr "$UPSTREAM_DIR"
           git clone \
             --depth 1 \
             --filter=blob:none \
-            --sparse \
+            --no-checkout \
             --branch main \
             https://github.com/hagezi/dns-blocklists.git \
             "$UPSTREAM_DIR"
-          git -C "$UPSTREAM_DIR" sparse-checkout set --no-cone \
-            /hosts/doh-vpn-proxy-bypass.txt \
-            /hosts/multi.txt \
-            /hosts/hoster.txt
-          for LIST in doh-vpn-proxy-bypass multi hoster; do
+          for LIST in "${LISTS[@]}"; do
+            echo "/hosts/$LIST.txt"
+          done | git -C "$UPSTREAM_DIR" sparse-checkout set --no-cone --stdin
+          git -C "$UPSTREAM_DIR" checkout main
+          for LIST in "${LISTS[@]}"; do
             if [ ! -s "$UPSTREAM_DIR/hosts/$LIST.txt" ]; then
               echo "::error::Upstream file hosts/$LIST.txt is missing or empty"
               exit 1
