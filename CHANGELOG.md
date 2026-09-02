@@ -11,7 +11,7 @@ Please ADD ALL Changes to the UNRELASED SECTION and not a specific release
 ## [Unreleased]
 ### Security
 ### Added
-- TBD - to be finalized after review
+- Local nginx server setup (server/install.sh): serves adblock.txt and hosts.txt over internal HTTP from an hourly-synced clone, so LAN consumers need no external egress
 ### Fixed
 ### Changed
 - Pin GitHub Actions `uses:` references to commit SHA instead of tag
