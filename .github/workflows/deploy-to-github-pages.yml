@@ -8,6 +8,7 @@ on:
     paths:
       - adblock.txt
       - hosts.txt
+      - hagezi/**
       - .github/workflows/deploy-to-github-pages.yml
 jobs:
   deploy:
@@ -34,6 +35,7 @@ jobs:
           mkdir "${{env.TARGET}}/"
           cp adblock.txt "${{env.TARGET}}/adblock.txt"
           cp hosts.txt "${{env.TARGET}}/hosts.txt"
+          cp -r hagezi "${{env.TARGET}}/hagezi"
 
       - name: "Deploy"
         uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4.1.0
