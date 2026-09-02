@@ -1,0 +1,17 @@
+[Unit]
+Description=Sync the adblock rules clone from GitHub
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=adblock-sync
+Group=adblock-sync
+WorkingDirectory=/var/lib/adblock-rules/credfeto-adblock-rules
+ExecStart=/usr/bin/git fetch origin main
+ExecStart=/usr/bin/git reset --hard origin/main
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/adblock-rules
