@@ -20,6 +20,7 @@ permissions:
 jobs:
   update-hagezi-lists:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: "Check Required Secrets"
@@ -35,6 +36,10 @@ jobs:
         shell: bash
         run: sudo chown -R "$USER:$USER" "$GITHUB_WORKSPACE"
 
+      # SOURCE_PUSH_TOKEN must be an admin-owned classic PAT, not GITHUB_TOKEN:
+      # pushing straight to main relies on branch protection's isAdminEnforced
+      # being off, and only a PAT-made push starts the downstream pages deploy
+      # workflow (pushes made with GITHUB_TOKEN do not trigger workflows).
       - name: "Checkout Source"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -63,6 +68,10 @@ jobs:
           for LIST in "${LISTS[@]}"; do
             if [ ! -s "$UPSTREAM_DIR/hosts/$LIST.txt" ]; then
               echo "::error::Upstream file hosts/$LIST.txt is missing or empty"
+              exit 1
+            fi
+            if grep -q "$(printf '\r')" "$UPSTREAM_DIR/hosts/$LIST.txt"; then
+              echo "::error::Upstream file hosts/$LIST.txt contains CR bytes; git text normalisation would break the byte-for-byte mirror"
               exit 1
             fi
             cp "$UPSTREAM_DIR/hosts/$LIST.txt" "hagezi/$LIST.txt"
