@@ -24,25 +24,27 @@ changed together.
 sudo ./install.sh
 ```
 
-The checkout you run the script from is bootstrap-only: everything is
-installed from the served clone at
-`/var/lib/adblock-rules/credfeto-adblock-rules`, which the script syncs first
-on a re-run - so re-running the installer always deploys whatever is on
-`main`. It:
+Privileged artefacts (`nginx.conf` and the systemd units) are installed from
+the checkout you run the script from - never from the served clone, which is
+writable by the unprivileged `adblock-sync` account and therefore must not be
+able to feed configuration to root. Only the two list files are read from the
+clone, as plain content. To upgrade, pull this checkout and re-run the script.
+It:
 
 1. Creates the `adblock-sync` system user and `/var/lib/adblock-rules`.
-2. Clones this repository into the served clone (or, on a re-run, syncs it to
-   `origin/main` via the sync service so there is a single definition of how
-   syncing works).
-3. Installs and enables [adblock-rules-sync.timer](adblock-rules-sync.timer),
-   which runs [adblock-rules-sync.service](adblock-rules-sync.service) hourly
-   to force-sync the clone, publishing any list updates.
-4. Tests the clone's [nginx.conf](nginx/nginx.conf) with `nginx -t`; only if
-   the test passes does it back up any existing `/etc/nginx/nginx.conf` (to
-   `/etc/nginx/nginx.conf.bak.<timestamp>`; restore with
+2. Clones this repository into
+   `/var/lib/adblock-rules/credfeto-adblock-rules` (or, on a re-run, syncs it
+   to `origin/main` via the sync service so there is a single definition of
+   how syncing works).
+3. Tests this checkout's [nginx.conf](nginx/nginx.conf) with `nginx -t`; only
+   if the test passes does it back up any existing `/etc/nginx/nginx.conf`
+   (to `/etc/nginx/nginx.conf.bak.<timestamp>`; restore with
    `cp -p /etc/nginx/nginx.conf.bak.<timestamp> /etc/nginx/nginx.conf &&
    systemctl reload nginx`) and install the new one, then reload (or start)
    nginx.
+4. Installs and enables [adblock-rules-sync.timer](adblock-rules-sync.timer),
+   which runs [adblock-rules-sync.service](adblock-rules-sync.service) hourly
+   to force-sync the clone, publishing any list updates.
 5. Opens port 80/tcp to private networks when firewalld is present (skipped
    otherwise).
 

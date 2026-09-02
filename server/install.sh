@@ -1,17 +1,21 @@
 #!/bin/bash
 # Installs the local adblock-list server on an Arch Linux host with nginx
 # pre-installed: creates the sync user and served clone, installs the nginx
-# configuration and systemd units from that clone (so upgrades arrive via the
-# hourly sync), and opens port 80 to private networks when firewalld is
-# present. Idempotent - safe to re-run for upgrades; a re-run syncs the clone
-# first and installs whatever configuration that delivers.
+# configuration and systemd units, and opens port 80 to private networks when
+# firewalld is present. Idempotent - safe to re-run for upgrades (pull this
+# checkout first, then re-run).
+#
+# Privileged artefacts (nginx.conf, systemd units) are deliberately installed
+# from THIS checkout, never from the served clone: the clone is writable by
+# the unprivileged adblock-sync account, so sourcing root-installed files from
+# it would let a compromised sync account feed configuration to root. Only the
+# two list files are ever read from the clone (by nginx, as plain content).
 set -eu
 
 REPO_URL="https://github.com/credfeto/credfeto-adblock-rules.git"
 SYNC_USER="adblock-sync"
 DATA_DIR="/var/lib/adblock-rules"
 CLONE_DIR="${DATA_DIR}/credfeto-adblock-rules"
-SERVER_DIR="${CLONE_DIR}/server"
 NGINX_CONF_TARGET="/etc/nginx/nginx.conf"
 UNIT_DIR="/etc/systemd/system"
 
@@ -80,6 +84,8 @@ open_port_for_private_networks() {
     done
 }
 
+SCRIPT_DIR=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+
 [ "$(id -u)" -eq 0 ] || die "This script must be run as root"
 
 for TOOL in nginx git systemctl runuser; do
@@ -102,27 +108,27 @@ elif [ -f "${UNIT_DIR}/adblock-rules-sync.service" ]; then
     systemctl start adblock-rules-sync.service
 fi
 
-info "Installing systemd sync units..."
-install -m 0644 "${SERVER_DIR}/adblock-rules-sync.service" "${UNIT_DIR}/adblock-rules-sync.service"
-install -m 0644 "${SERVER_DIR}/adblock-rules-sync.timer" "${UNIT_DIR}/adblock-rules-sync.timer"
-systemctl daemon-reload
-systemctl enable --now adblock-rules-sync.timer
-
-info "Testing the nginx configuration from the served clone..."
-if ! nginx -t -c "${SERVER_DIR}/nginx/nginx.conf"; then
-    die "nginx configuration test failed - existing configuration left untouched"
+info "Testing the shipped nginx configuration..."
+if ! nginx -t -c "${SCRIPT_DIR}/nginx/nginx.conf"; then
+    die "nginx configuration test failed - nothing installed"
 fi
 
-if [ -f "${NGINX_CONF_TARGET}" ] && ! cmp -s "${SERVER_DIR}/nginx/nginx.conf" "${NGINX_CONF_TARGET}"; then
+if [ -f "${NGINX_CONF_TARGET}" ] && ! cmp -s "${SCRIPT_DIR}/nginx/nginx.conf" "${NGINX_CONF_TARGET}"; then
     BACKUP="${NGINX_CONF_TARGET}.bak.$(date +%Y%m%d%H%M%S)"
     info "Backing up existing configuration to ${BACKUP}..."
     cp -p "${NGINX_CONF_TARGET}" "${BACKUP}"
 fi
 
 info "Installing nginx configuration..."
-install -m 0644 "${SERVER_DIR}/nginx/nginx.conf" "${NGINX_CONF_TARGET}"
+install -m 0644 "${SCRIPT_DIR}/nginx/nginx.conf" "${NGINX_CONF_TARGET}"
 systemctl enable nginx
 systemctl reload-or-restart nginx
+
+info "Installing systemd sync units..."
+install -m 0644 "${SCRIPT_DIR}/adblock-rules-sync.service" "${UNIT_DIR}/adblock-rules-sync.service"
+install -m 0644 "${SCRIPT_DIR}/adblock-rules-sync.timer" "${UNIT_DIR}/adblock-rules-sync.timer"
+systemctl daemon-reload
+systemctl enable --now adblock-rules-sync.timer
 
 if command -v firewall-cmd >/dev/null 2>&1; then
     info "Opening port 80/tcp to private networks..."
@@ -132,4 +138,4 @@ else
     info "firewalld not present - skipping firewall configuration"
 fi
 
-success "Install complete: adblock.txt and hosts.txt are served per ${SERVER_DIR}/nginx/nginx.conf from ${CLONE_DIR}, refreshed hourly by adblock-rules-sync.timer"
+success "Install complete: adblock.txt and hosts.txt are served from ${CLONE_DIR}, refreshed hourly by adblock-rules-sync.timer"
