@@ -27,9 +27,9 @@ jobs:
       - name: "Build"
         shell: bash
         run: |
-          mkdir "${{env.TARGET}}/"
-          cp adblock.txt "${{env.TARGET}}/adblock.txt"
-          cp hosts.txt "${{env.TARGET}}/hosts.txt"
+          mkdir "${TARGET}/"
+          cp adblock.txt "${TARGET}/adblock.txt"
+          cp hosts.txt "${TARGET}/hosts.txt"
 
       - name: "Deploy"
         if: ${{ github.ref == 'refs/heads/main' }}
